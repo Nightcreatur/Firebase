@@ -31,13 +31,37 @@ class HomePage extends StatelessWidget {
                 if (user?.emailVerified ?? false) {
                   print('You are verified');
                 } else {
-                  print('You are not verified yet !!');
+                  return const VerifyEmailView();
                 }
                 return const Text('Done');
               default:
                 return const Text('Loading login');
             }
           }),
+    );
+  }
+}
+
+class VerifyEmailView extends StatefulWidget {
+  const VerifyEmailView({Key? key}) : super(key: key);
+
+  @override
+  State<VerifyEmailView> createState() => _VerifyEmailViewState();
+}
+
+class _VerifyEmailViewState extends State<VerifyEmailView> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Text('Please verify your email address'),
+        TextButton(
+            onPressed: () async {
+              final user = FirebaseAuth.instance.currentUser;
+              await user?.sendEmailVerification();
+            },
+            child: const Text('Send Email Verification'))
+      ],
     );
   }
 }
