@@ -43,17 +43,25 @@ class _RegisterViewState extends State<RegisterView> {
               case ConnectionState.done:
                 return Column(
                   children: [
-                    TextField(
-                      controller: _email,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(hintText: 'Email'),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      child: TextField(
+                        controller: _email,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                            hintText: 'Email', icon: Icon(Icons.email)),
+                      ),
                     ),
-                    TextField(
-                      controller: _password,
-                      obscureText: true,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      decoration: const InputDecoration(hintText: 'Password'),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      child: TextField(
+                        controller: _password,
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: const InputDecoration(
+                            hintText: 'Password', icon: Icon(Icons.password)),
+                      ),
                     ),
                     TextButton(
                       child: const Text('SignUp'),
@@ -78,6 +86,12 @@ class _RegisterViewState extends State<RegisterView> {
                         }
                       }),
                     ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/login/', (route) => false);
+                        },
+                        child: Text('Already have account ? Login here!'))
                   ],
                 );
               default:
