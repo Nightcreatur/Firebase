@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
-import 'dart:developer' as devtool show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +13,8 @@ void main() {
     home: const HomePage(),
     routes: {
       '/login/': (context) => const Login(),
-      '/register/': (context) => const RegisterView()
+      '/register/': (context) => const RegisterView(),
+      '/notes/': (context) => const NotesView(),
     },
   ));
 }
