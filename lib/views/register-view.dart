@@ -2,6 +2,7 @@ import 'package:dart/constansts/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:dart/utilities/show_error_dialouge.dart';
 import 'dart:developer' as devtool show log;
 
 import '../firebase_options.dart';
@@ -71,20 +72,26 @@ class _RegisterViewState extends State<RegisterView> {
                         final email = _email.text;
                         final password = _password.text;
                         try {
-                          final userCredential = await FirebaseAuth.instance
+                          await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                                   email: email, password: password);
-                          devtool.log(userCredential.toString());
+                          Navigator.of(context).pushNamed(
+                            verifyEmail,
+                          );
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
-                            devtool.log('Weak Password');
+                            await showErrorDialog(context,
+                                'Weak password try some strong password');
                           } else if (e.code == 'email-already-in-use') {
-                            devtool.log('Email already in use');
+                            await showErrorDialog(
+                                context, 'Email already in use');
                           } else if (e.code == 'invalid-email') {
-                            devtool.log('Invalid email');
+                            await showErrorDialog(context, 'Invalid email');
                           } else {
-                            devtool.log(e.code);
+                            await showErrorDialog(context, 'Error ${e.code}');
                           }
+                        } catch (e) {
+                          await showErrorDialog(context, e.toString());
                         }
                       }),
                     ),
@@ -93,7 +100,7 @@ class _RegisterViewState extends State<RegisterView> {
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               loginRoute, (route) => false);
                         },
-                        child: Text('Already have account ? Login here!'))
+                        child: const Text('Already have account ? Login here!'))
                   ],
                 );
               default:

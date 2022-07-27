@@ -1,7 +1,7 @@
 import 'package:dart/constansts/routes.dart';
+import 'package:dart/utilities/show_error_dialouge.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:developer' as devtool show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,10 +78,26 @@ class _LoginState extends State<Login> {
                 );
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
-                  devtool.log('User not found');
+                  await showErrorDialog(
+                    context,
+                    'User not found',
+                  );
                 } else if (e.code == 'wrong-password') {
-                  devtool.log('Wrong Password');
+                  await showErrorDialog(
+                    context,
+                    'Wrong credentials',
+                  );
+                } else {
+                  await showErrorDialog(
+                    context,
+                    'Error: ${e.code}',
+                  );
                 }
+              } catch (e) {
+                await showErrorDialog(
+                  context,
+                  e.toString(),
+                );
               }
             }),
           ),

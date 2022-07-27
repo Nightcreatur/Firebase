@@ -13,14 +13,14 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Verify email'),
-          leading: IconButton(
-            onPressed: () => {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/login/', (route) => false)
-            },
-            icon: const Icon(Icons.arrow_back),
-          )),
+        title: const Text('Verify email'),
+        // leading: IconButton(
+        //   onPressed: () => {
+        //     Navigator.of(context)
+        //         .pushNamedAndRemoveUntil('/login/', (route) => false)
+        //   },
+        //   icon: const Icon(Icons.arrow_back),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
