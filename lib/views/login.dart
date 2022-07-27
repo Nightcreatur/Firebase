@@ -1,3 +1,4 @@
+import 'package:dart/constansts/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer' as devtool show log;
@@ -72,7 +73,7 @@ class _LoginState extends State<Login> {
                 await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: email, password: password);
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/notes/',
+                  notesRoute,
                   (route) => false,
                 );
               } on FirebaseAuthException catch (e) {
@@ -87,7 +88,7 @@ class _LoginState extends State<Login> {
           TextButton(
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/register/', (route) => false);
+                    .pushNamedAndRemoveUntil(registerRoute, (route) => false);
               },
               child: const Text('Not registered yet? Register here!'))
         ],

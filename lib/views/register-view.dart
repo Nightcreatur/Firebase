@@ -1,3 +1,4 @@
+import 'package:dart/constansts/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                     ),
                     TextButton(
-                      child: const Text('SignUp'),
+                      child: const Text('Register'),
                       onPressed: (() async {
                         final email = _email.text;
                         final password = _password.text;
@@ -90,7 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
                     TextButton(
                         onPressed: () {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/login/', (route) => false);
+                              loginRoute, (route) => false);
                         },
                         child: Text('Already have account ? Login here!'))
                   ],
