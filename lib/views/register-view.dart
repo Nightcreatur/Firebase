@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:dart/utilities/show_error_dialouge.dart';
-import 'dart:developer' as devtool show log;
 
 import '../firebase_options.dart';
 
@@ -75,6 +74,8 @@ class _RegisterViewState extends State<RegisterView> {
                           await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                                   email: email, password: password);
+                          final user = FirebaseAuth.instance.currentUser;
+                          await user?.sendEmailVerification();
                           Navigator.of(context).pushNamed(
                             verifyEmail,
                           );

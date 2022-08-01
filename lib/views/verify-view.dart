@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:dart/constansts/routes.dart';
 
 class VerifyEmailView extends StatefulWidget {
   const VerifyEmailView({Key? key}) : super(key: key);
@@ -14,12 +17,6 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Verify email'),
-        // leading: IconButton(
-        //   onPressed: () => {
-        //     Navigator.of(context)
-        //         .pushNamedAndRemoveUntil('/login/', (route) => false)
-        //   },
-        //   icon: const Icon(Icons.arrow_back),
       ),
       body: Center(
         child: Column(
@@ -29,19 +26,22 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
               'Please verify your email address',
               style: TextStyle(fontSize: 18),
             ),
-            ElevatedButton.icon(
-                onPressed: () async {
-                  final user = FirebaseAuth.instance.currentUser;
-                  await user?.sendEmailVerification();
-                },
-                icon: const Icon(Icons.verified_outlined),
-                label: const Text('Verify')),
+            const SizedBox(
+              height: 15,
+            ),
             ElevatedButton(
                 onPressed: () async {
                   final user = FirebaseAuth.instance.currentUser;
                   await user?.sendEmailVerification();
                 },
-                child: const Text('Verify'))
+                child: const Text('Send verification email')),
+            ElevatedButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(loginRoute, (route) => false);
+                },
+                child: const Text('Already received ?'))
           ],
         ),
       ),
